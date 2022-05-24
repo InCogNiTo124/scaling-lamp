@@ -1,0 +1,10 @@
+- hosts: all
+  tasks:
+    - name: Get hostname
+      ansible.builtin.command:
+        cmd: hostname
+      register: hostname
+
+    - name: Print hostname
+      ansible.builtin.debug:
+        var: hostname
