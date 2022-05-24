@@ -7,8 +7,9 @@ runs:
   steps:
     - name: Run Ansible playbook
       uses: dawidd6/action-ansible-playbook@v2.5.0
-      playbook: "deploy.yaml"
-      inventory: |
-        [all]
-        msmetko.xyz:${{ secrets.ANSIBLE_PORT }}
-      key: ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        playbook: "deploy.yaml"
+        inventory: |
+          [all]
+          msmetko.xyz:${{ secrets.ANSIBLE_PORT }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
