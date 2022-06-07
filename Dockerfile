@@ -4,4 +4,4 @@ RUN pip install ansible
 COPY deploy.yaml inv key entrypoint.sh ./
 RUN chmod 0400 inv key
 RUN chmod u+x entrypoint.sh
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
