@@ -1,15 +1,23 @@
 name: "Deploy action"
 description: "Deployment of InCogNiTo124 stuff"
-inputs: {}
-outputs: {}
+inputs:
+  vault-password:
+    description: "Password for decrypting inventory and private key"
+    required: true
+outputs:
+  output:
+    description: "The captured output of both stdout and stderr from the Ansible Playbook run"
+    value: ${{ steps.ansible-playbook.outputs.output }}
 runs:
   using: "composite"
   steps:
     - name: Run Ansible playbook
+      id: ansible-playbook
       uses: dawidd6/action-ansible-playbook@v2.5.0
       with:
         playbook: "deploy.yaml"
-        inventory: |
-          [all]
-          msmetko.xyz:${{ secrets.ANSIBLE_PORT }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        vault_password: ${{ inputs.vault-password }}
+        options: |
+          --inventory inv
+          --private-key key
+          --verbose
