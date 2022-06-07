@@ -18,6 +18,7 @@ runs:
         ref: master
     - name: chmod
       run: chmod 0400 inv key
+      shell: bash
     - name: Run Ansible playbook
       id: ansible-playbook
       uses: dawidd6/action-ansible-playbook@v2.5.0
