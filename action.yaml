@@ -13,6 +13,9 @@ runs:
   steps:
     - name: Checkout action
       uses: actions/checkout@v3
+      with:
+        repository: InCogNiTo124/scaling-lamp
+        ref: master
     - name: Run Ansible playbook
       id: ansible-playbook
       uses: dawidd6/action-ansible-playbook@v2.5.0
