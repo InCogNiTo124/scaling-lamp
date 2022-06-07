@@ -16,6 +16,8 @@ runs:
       with:
         repository: InCogNiTo124/scaling-lamp
         ref: master
+    - name: chmod
+      run: chmod 0400 inv key
     - name: Run Ansible playbook
       id: ansible-playbook
       uses: dawidd6/action-ansible-playbook@v2.5.0
