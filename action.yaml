@@ -4,28 +4,11 @@ inputs:
   vault-password:
     description: "Password for decrypting inventory and private key"
     required: true
-outputs:
-  output:
-    description: "The captured output of both stdout and stderr from the Ansible Playbook run"
-    value: ${{ steps.ansible-playbook.outputs.output }}
+outputs: {}
 runs:
-  using: "composite"
-  steps:
-    - name: Checkout action
-      uses: actions/checkout@v3
-      with:
-        repository: InCogNiTo124/scaling-lamp
-        ref: master
-    - name: chmod
-      run: chmod 0400 inv key
-      shell: bash
-    - name: Run Ansible playbook
-      id: ansible-playbook
-      uses: dawidd6/action-ansible-playbook@v2.5.0
-      with:
-        playbook: "deploy.yaml"
-        vault_password: ${{ inputs.vault-password }}
-        options: |
-          --inventory inv
-          --private-key key
-          --verbose
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.vault-password }}
+  env:
+    ANSIBLE_HOST_KEY_CHECKING: False
