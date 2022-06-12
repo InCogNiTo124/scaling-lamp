@@ -24,7 +24,15 @@
         version: "origin/master"
         force: true
 
-    # todo makefile if exists
+    - name: check for Makefile
+      ansible.builtin.stat:
+        path: "~/InCogNiTo124/deploy-test/Makefile"
+      register: makefile
+
+    - name: run make
+      community.general.make:
+        chdir: "~/InCogNiTo124/deploy-test"
+      when: "(makefile.stat.isreg is defined) and (makefile.stat.isreg)"
 
     - name: docker compose build --pull --no-cache
       ansible.builtin.command:

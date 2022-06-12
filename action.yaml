@@ -10,5 +10,6 @@ runs:
   image: "docker://ghcr.io/incognito124/scaling-lamp:latest"
   args:
     - ${{ inputs.vault-password }}
+    - ${{ github.repository }}
   env:
     ANSIBLE_HOST_KEY_CHECKING: False
