@@ -1,5 +1,9 @@
 - hosts: all
   tasks:
+    - name: debug extra var
+      ansible.builtin.debug:
+        var: repo
+
     - name: ensure repo is cloned
       ansible.builtin.git:
         repo: 'git@github.com:InCogNiTo124/deploy-test.git'
@@ -32,6 +36,12 @@
     - name: run make
       community.general.make:
         chdir: "~/InCogNiTo124/deploy-test"
+      when: "(makefile.stat.isreg is defined) and (makefile.stat.isreg)"
+      register: make_output
+
+    - name: debug make output
+      ansible.builtin.debug:
+        var: make_output.stdout
       when: "(makefile.stat.isreg is defined) and (makefile.stat.isreg)"
 
     - name: docker compose build --pull --no-cache
