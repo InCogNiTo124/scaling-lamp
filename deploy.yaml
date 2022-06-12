@@ -1,10 +1,41 @@
 - hosts: all
   tasks:
-    - name: Get hostname
-      ansible.builtin.command:
-        cmd: hostname
-      register: hostname
+    - name: clone repo
+      ansible.builtin.git:
+        repo: 'https://github.com/InCogNiTo124/deploy-test.git'
+        dest: '~/InCogNiTo124/deploy-test'
+        update: true
+        clone: true
+        version: "origin/master"
+        depth: 1
 
-    - name: Print hostname
-      ansible.builtin.debug:
-        var: hostname
+    - name: docker compose down
+      # this should be community.docker.docker_compose
+      # but it does not support docker compose v2
+      ansible.builtin.command:
+        chdir: "~/InCogNiTo124/deploy-test"
+        argv:
+          - docker
+          - compose
+          - down
+
+    # todo makefile if exists
+
+    - name: docker compose build --pull --no-cache
+      ansible.builtin.command:
+        chdir: "~/InCogNiTo124/deploy-test"
+        argv:
+          - docker
+          - compose
+          - build
+          - --pull
+          - --no-cache
+
+    - name: docker compose up -d
+      ansible.builtin.command:
+        chdir: "~/InCogNiTo124/deploy-test"
+        argv:
+          - docker
+          - compose 
+          - up
+          - -d
