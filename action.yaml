@@ -4,15 +4,11 @@ inputs:
   vault-password:
     description: "Password for decrypting inventory and private key"
     required: true
-  repository:
-    description: "The github repository which invokes this action"
-    required: true
 outputs: {}
 runs:
   using: "docker"
   image: "docker://ghcr.io/incognito124/scaling-lamp:latest"
   args:
     - ${{ inputs.vault-password }}
-    - ${{ inputs.repository }}
   env:
     ANSIBLE_HOST_KEY_CHECKING: False
