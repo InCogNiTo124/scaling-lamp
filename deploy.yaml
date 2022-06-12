@@ -22,7 +22,7 @@
 
     - name: update repo
       ansible.builtin.git:
-        repo: 'git@github.com/{{ repo }}.git'
+        repo: 'git@github.com:{{ repo }}.git'
         dest: '~/{{ repo }}'
         update: true
         version: "origin/master"
