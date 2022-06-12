@@ -7,7 +7,7 @@ inputs:
 outputs: {}
 runs:
   using: "docker"
-  image: "docker://ghcr.io/incognito124/scaling-lamp:master"
+  image: "docker://ghcr.io/incognito124/scaling-lamp:latest"
   args:
     - ${{ inputs.vault-password }}
   env:
