@@ -53,6 +53,8 @@
           - build
           - --pull
           - --no-cache
+      async: 500
+      poll: 5
 
     - name: docker compose up -d
       ansible.builtin.command:
