@@ -1,4 +1,8 @@
 - hosts: all
+  environment: 
+    COMPOSE_FILE: docker-compose.yml,prod.docker-compose.yml
+      COMPOSE_PATH_SEPARATOR: ,
+
   tasks:
     - name: debug extra var
       ansible.builtin.debug:
