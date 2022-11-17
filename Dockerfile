@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine:3.17
 RUN apk add gcc python3-dev py3-pip musl-dev libffi-dev openssh
 RUN pip install ansible
 COPY deploy.yaml inv key entrypoint.sh ./
